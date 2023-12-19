@@ -1,7 +1,7 @@
 const express = require("express");
 const DeveloperRouter = express.Router();
 const { isAuth } = require("../Middleware/auth.Middleware");
-const { DeveloperModel } = require('../model/Developer.model');
+const { DeveloperModel } = require("../model/Developer.model");
 
 DeveloperRouter.post("/signup", async (req, res) => {
   try {
@@ -14,7 +14,7 @@ DeveloperRouter.post("/signup", async (req, res) => {
       professionalExperience,
       educationalExperience,
     } = req.body;
-
+    console.log("req", req.body);
     const result = await DeveloperModel.create({
       first_name: firstName,
       last_name: lastName,
@@ -40,7 +40,10 @@ DeveloperRouter.post("/login", async (req, res) => {
 
     if (user) {
       if (user.password === password) {
-        const token = jwt.sign({ userId: user._id, userEmail: user.email }, process.env.JWT_SECRET);
+        const token = jwt.sign(
+          { userId: user._id, userEmail: user.email },
+          process.env.JWT_SECRET
+        );
         res.status(200).json({ message: "Login successful", token });
       } else {
         res.status(401).json({ message: "Invalid credentials" });
@@ -54,17 +57,19 @@ DeveloperRouter.post("/login", async (req, res) => {
   }
 });
 
-DeveloperRouter.get("/profile", isAuth, async (req, res) => {
+DeveloperRouter.get("/profile", async (req, res) => {
   try {
     const userProfile = req.body;
-    res.status(200).json({ message: "Profile retrieved successfully", user: userProfile });
+    res
+      .status(200)
+      .json({ message: "Profile retrieved successfully", user: userProfile });
   } catch (error) {
     console.error("Profile retrieval error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-DeveloperRouter.put("/profile", isAuth, async (req, res) => {
+DeveloperRouter.put("/profile", async (req, res) => {
   try {
     const {
       firstName,
@@ -87,7 +92,9 @@ DeveloperRouter.put("/profile", isAuth, async (req, res) => {
       }
     );
 
-    res.status(200).json({ message: "Profile updated successfully", user: result });
+    res
+      .status(200)
+      .json({ message: "Profile updated successfully", user: result });
   } catch (error) {
     console.error("Profile update error:", error);
     res.status(500).json({ error: "Internal Server Error" });

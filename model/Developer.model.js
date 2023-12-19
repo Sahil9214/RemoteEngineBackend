@@ -1,29 +1,30 @@
 const mongoose = require("mongoose");
 
+  
 const skillSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: String,
   // Add other skill-related fields as needed
 });
 
 const professionalExperienceSchema = new mongoose.Schema({
-  company_name: { type: String, required: true },
-  tech_stack: { type: String, required: true },
+  company_name: String,
+  tech_stack: String,
   skills_used: [skillSchema],
-  time_period: { type: String, required: true },
+  time_period: String,
 });
 
 const educationalExperienceSchema = new mongoose.Schema({
-  degree_name: { type: String, required: true },
-  school_name: { type: String, required: true },
-  time_period: { type: String, required: true },
+  degree_name: String,
+  school_name: String,
+  time_period: String,
 });
 
 const developerSchema = new mongoose.Schema({
-  first_name: { type: String, required: true },
-  last_name: { type: String, required: true },
-  phone_number: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  skills: [skillSchema],
+  first_name: String,
+  last_name: String,
+  phone_number: String,
+  email: String, 
+  skills: [String],
   professional_experience: [professionalExperienceSchema],
   educational_experience: [educationalExperienceSchema],
 });
