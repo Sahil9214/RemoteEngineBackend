@@ -22,7 +22,7 @@ const PORT = process.env.PORT ;
 app.listen(PORT, async(res,req) => {
   try{
 await connection;
-console.log("bhai acha mai chalta hu")
+console.log("bhai acha mai chalta hu",PORT)
   }
   catch(err){
     console.log(`Server is running on port ${PORT}`);

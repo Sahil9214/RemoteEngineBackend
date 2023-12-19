@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 clientRouter.post("/register", async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(email, password);
   try {
     bcrypt.hash(password, 5, async (err, hash) => {
       if (err) {
